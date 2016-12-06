@@ -1,0 +1,37 @@
+{
+  "name": "snapper-js",
+  "version": "0.0.1",
+  "description": "Snapper JS",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest",
+    "flow": "flow check",
+    "flow-watch": "watch 'flow check' src",
+    "build": "babel src --out-dir lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prewk/snapper-js.git"
+  },
+  "author": "Oskar Thornblad <oskar.thornblad@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prewk/snapper-js/issues"
+  },
+  "homepage": "https://github.com/prewk/snapper-js#readme",
+  "dependencies": {
+    "ajv": "^4.9.0",
+    "dot-object": "^1.5.4",
+    "lodash": "^4.17.2",
+    "node-uuid": "^1.4.7",
+    "snapper-schema": "^1.7.2",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
+    "flow-bin": "^0.36.0",
+    "jest": "^17.0.3",
+    "watch": "^1.0.1"
+  }
+}
