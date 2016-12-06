@@ -1,6 +1,6 @@
 {
   "name": "snapper-js",
-  "version": "0.0.1",
+  "version": "1.7.2",
   "description": "Snapper JS",
   "main": "lib/index.js",
   "scripts": {
