@@ -1,7 +1,5 @@
 // @flow
 
-const IdResolver = require('./id-resolver');
-const IdMaker = require('./id-maker');
 const getEntityByName = require('../schema/get-entity-by-name');
 const makeCreateTask = require('./make-create-task');
 const getTaskDependencies = require('./get-task-dependencies');

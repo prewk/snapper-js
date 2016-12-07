@@ -4,6 +4,6 @@
 src/**/*.js
 
 [libs]
-.*/**/decls/
+decls/
 
 [options]
