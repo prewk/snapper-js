@@ -1,5 +1,7 @@
 // @flow
 
+const IdMaker = require('../compiler/id-maker');
+
 /**
  * Perform the match and return the correct case
  */

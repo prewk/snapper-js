@@ -12,7 +12,7 @@ function getTaskValueDependencies(value: TaskValue): Array<number> {
         case 'TASK_ASSEMBLED_ALIAS':
             return value.parts.reduce((deps, [type, , alias]) => {
                 if (type === 'ALIAS') {
-                    deps.push(alias);
+                    deps.push(parseInt(alias, 10));
                 }
 
                 return deps;

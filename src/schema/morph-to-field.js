@@ -1,6 +1,7 @@
 // @flow
 
 const getValueWithFallback = require('./get-value-with-fallback');
+const IdMaker = require('../compiler/id-maker');
 
 /**
  * Validate a MorphTo field

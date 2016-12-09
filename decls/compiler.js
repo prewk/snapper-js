@@ -8,13 +8,11 @@ declare type TaskAlias = {
     alias: number;
 }
 
-declare type TaskAssembledAliasPart = ['PART', 'NONE', string];
-
-declare type TaskAssemledAliasAlias = ['ALIAS', 'NONE' | 'JSON', number];
+declare type TaskAssembledAliasPart = ['PART' | 'ALIAS', 'NONE' | 'JSON', string | number];
 
 declare type TaskAssembledAlias = {
     type: 'TASK_ASSEMBLED_ALIAS';
-    parts: Array<TaskAssembledAliasPart | TaskAssemledAliasAlias>
+    parts: Array<TaskAssembledAliasPart>
 }
 
 declare type TaskValue = TaskRawValue | TaskAlias | TaskAssembledAlias;
@@ -47,17 +45,4 @@ declare interface Compiler {
     ): TaskSequence;
 }
 
-declare interface IdMaker {
-    getId(name: string, id: string | number): number;
-    getEntity(id: number): EntityPair;
-    getBooks(): { [key: string]: number };
-}
-
-declare interface IdResolver {
-    hasListener(id: number): boolean;
-    findCircularDeps(id: number, dependencies: Array<number>): Array<number>;
-    resolve(): void;
-    report(id: number): void;
-    unregister(id: number): void;
-    listen(id: number, dependencies: Array<number>, handler: () => void): () => void;
-};
+declare type EntityPair = [string, string | number];

@@ -1,18 +1,20 @@
 // @flow
 
 const sortBy = require('lodash/sortBy');
+const noop = require('lodash/noop');
 
 type ListenerPair = [Array<number>, () => void];
 
 function IdResolver() {
-    const listeners: { [key: string]: ListenerPair | null } = {};
+    const listeners: { [key: string]: ListenerPair } = {};
     const resolved: Array<number> = [];
 
     /**
      * Has listener?
      */
     this.hasListener = (id: number): boolean => {
-        return listeners.hasOwnProperty('' + id) && listeners['' + id] !== null;
+        const key = '' + id;
+        return listeners.hasOwnProperty('' + id) && listeners[key][1] !== noop;
     };
 
     /**
@@ -32,10 +34,9 @@ function IdResolver() {
         const ids = [];
 
         Object.keys(listeners).forEach((id) => {
-            const tuple = listeners['' + id];
-            if (tuple === null) return;
+            const [deps, handler] = listeners['' + id];
 
-            const [deps] = tuple;
+            if (handler === noop) return;
 
             const resolvable = deps.reduce((resolvable, dep) =>
                 resolvable && resolved.includes(dep)
@@ -49,11 +50,11 @@ function IdResolver() {
         // Sort for more reliable determinism
         sortBy(ids).forEach((id) => {
             // Due to recursion some earlier handler in this forEach might nullify stuff before this iteration starts
-            if (listeners['' + id] === null) return;
+            if (listeners['' + id][1] === noop) return;
 
             const handler = listeners['' + id][1];
 
-            listeners['' + id] = null;
+            listeners['' + id] = [[], noop];
 
             handler();
         });
@@ -68,7 +69,7 @@ function IdResolver() {
         }
 
         resolved.push(id);
-        
+
         this.resolve();
     };
 
@@ -78,11 +79,11 @@ function IdResolver() {
     this.unregister = (id: number): void => {
         if (listeners.hasOwnProperty('' + id)) {
             throw new Error(`Can't unregister listener because id didn't exist for id ${id}`);
-        } else if (listeners['' + id] === null) {
+        } else if (listeners['' + id][1] === noop) {
             throw new Error(`Can only unregister a listener for id ${id} once`);
         }
 
-        listeners['' + id] = null;
+        listeners['' + id] = [[], noop];
     };
 
     /**

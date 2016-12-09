@@ -2,6 +2,7 @@
 
 const countBy = require('lodash/countBy');
 const getTaskDependencies = require('../get-task-dependencies');
+const IdMaker = require('../../compiler/id-maker');
 
 /**
  * Sort snapshot entities by most required

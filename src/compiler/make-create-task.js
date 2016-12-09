@@ -1,6 +1,7 @@
 //@flow
 
 const compileField = require('./compile-field');
+const IdMaker = require('../compiler/id-maker');
 
 /**
  * Make a CreateTask

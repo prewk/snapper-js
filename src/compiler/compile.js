@@ -6,6 +6,8 @@ const getTaskDependencies = require('./get-task-dependencies');
 const getTaskValueDependencies = require('./get-task-value-dependencies');
 const getFieldName = require('./get-field-name');
 const sortByMostRequired = require('./sorters/sort-by-most-required')
+const IdMaker = require('./id-maker');
+const IdResolver = require('./id-resolver');
 
 /**
  * Make an UpdateTask from a CreateTask

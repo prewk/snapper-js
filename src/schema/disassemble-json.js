@@ -8,7 +8,7 @@ const flattenDeep = require('lodash/flattenDeep');
 function disassembleJson(
     full: Object,
     tokens: Array<string | number>
-): Array<TaskAssembledAliasPart | TaskAssemledAliasAlias> {
+): Array<TaskAssembledAliasPart> {
     let parts = [JSON.stringify(full)];
 
     // Iterate through tokens
@@ -24,7 +24,7 @@ function disassembleJson(
             }
 
             // Explode this part with token as delimiter
-            const exploded = part.split(token);
+            const exploded = part.split('' + token);
             const results = [];
 
             // Interleave token into split points
@@ -62,19 +62,25 @@ function disassembleJson(
                 parts[i - 1] = parts[i - 1].substring(0, parts[i - 1].length - 1);
                 parts[i + 1] = parts[i + 1].substr(1);
 
-                metadata.push(['ALIAS', 'JSON']);
+                metadata.push(['ALIAS', 'JSON', 0]);
             } else if (typeof part === 'string') {
-                metadata.push(['ALIAS', 'NONE']);
+                metadata.push(['ALIAS', 'NONE', '']);
             } else {
-                metadata.push(['ALIAS', 'JSON']);
+                metadata.push(['ALIAS', 'JSON', 0]);
             }
         } else {
-            metadata.push(['PART', 'NONE']);
+            metadata.push(['PART', 'NONE', '']);
         }
     }
 
     const partsWithMetadata = parts.map((part, index) => {
-        const tuple = [metadata[index][0], metadata[index][1], part];
+        let tuple;
+
+        if (metadata[index][0] === 'PART') {
+            tuple = ['PART', metadata[index][1], part];
+        } else {
+            tuple = ['ALIAS', metadata[index][1], part];
+        }
 
         return tuple;
     });

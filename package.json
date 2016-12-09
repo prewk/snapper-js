@@ -6,8 +6,9 @@
   "scripts": {
     "test": "jest",
     "flow": "flow check",
-    "flow-watch": "watch 'flow check' src",
-    "build": "babel src --out-dir lib"
+    "flow-watch": "watch 'flow check' src decls",
+    "clean": "rm -rf lib",
+    "build": "npm run clean && babel src --out-dir lib --ignore __tests__/"
   },
   "repository": {
     "type": "git",

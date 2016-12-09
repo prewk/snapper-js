@@ -2,6 +2,7 @@
 
 const hasEntity = require('../snapshot/has-entity');
 const getValueWithFallback = require('./get-value-with-fallback');
+const IdMaker = require('../compiler/id-maker');
 
 /**
  * Validate a BelongsTo field
